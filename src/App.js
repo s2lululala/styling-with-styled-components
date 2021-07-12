@@ -1,106 +1,28 @@
 import React, {useState} from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import Button from './components/Button'
-import Dialog from './components/Dialog';
-
-const AppBlock = styled.div`
-  width: 512px;
-  margin: 0 auto;
-  margin-top: 4rem;
-  border: 1px solid black;
-  padding: 1rem;
-`;
-
-const ButtonGroup = styled.div`
-  & + & {
-    margin-top: 1rem;
-  }
-`;
+import About from './About';
+import Home from './Home';
+import PageNotFound from './PageNotFound';
+import { Route, Link, Switch } from 'react-router-dom';
 
 function App() {
-  const [dialog, setDialog] = useState(false);
-  const onClick = () => {
-    setDialog(true);
-  };
-  const onConfirm = () => {
-    console.log('Confirm');
-    setDialog(false);
-  };
-  const onCancel = () => {
-    console.log('Cancel');
-    setDialog(false);
-  };
   return (
-    <ThemeProvider
-      theme={{
-        palette: {
-          blue: '#228be6',
-          gray: '#495057',
-          pink: '#f06595'
-        }
-      }}
-    >
-      <>
-        <AppBlock>
-          <ButtonGroup>
-            <Button size="large">BUTTON</Button>
-            <Button>BUTTON</Button>
-            <Button size="small">BUTTON</Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button color="gray" size="large">
-              BUTTON
-            </Button>
-            <Button color="gray">BUTTON</Button>
-            <Button color="gray" size="small">
-              BUTTON
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button color="pink" size="large">
-              BUTTON
-            </Button>
-            <Button color="pink">BUTTON</Button>
-            <Button color="pink" size="small">
-              BUTTON
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button size="large" outline>
-              BUTTON
-            </Button>
-            <Button color="gray" outline>
-              BUTTON
-            </Button>
-            <Button color="pink" size="small" outline>
-              BUTTON
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button size="large" fullWidth>
-              BUTTON
-            </Button>
-            <Button size="large" color="gray" fullWidth>
-              BUTTON
-            </Button>
-            <Button size="large" color="pink" fullWidth onClick={onClick}>
-              Delete
-            </Button>
-          </ButtonGroup>
-        </AppBlock>
-        <Dialog
-          title="Are U Sure?"
-          confirmText="Del"
-          cancelText="Cancel"
-          onConfirm={onConfirm}
-          onCancel={onCancel}
-          visible={dialog}
-        >
-          데이터를 정말로 삭제하시겠습니까?
-        </Dialog>
-      </>
-    </ThemeProvider>
+    <div>
+      <ul>
+        <li>
+          <Link to="/">홈</Link>
+        </li>
+        <li>
+          <Link to="/about">어바웃</Link>
+        </li>
+      </ul>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" component={About} />
+        <Route component={PageNotFound} />
+      </Switch>
+    </div>
   );
-}
+};
 
 export default App;
